@@ -1,0 +1,5 @@
+{
+  "name": "Huddinge Tandvård Rådsvägen",
+  "description": "Modern tandvårdsklinik i Huddinge som erbjuder allt från allmän tandvård till estetiska behandlingar och akuttider.",
+  "requestFramePermissions": ["geolocation"]
+}
