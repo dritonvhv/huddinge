@@ -191,12 +191,12 @@ export const ChatDemo: React.FC<{ initialOpenGreeting?: string; onClose?: () => 
         style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom, 0px))" }}
       >
         <form onSubmit={onSubmit} className="w-full min-w-0">
-          <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-beige-200 shadow-sm w-full min-w-0">
+          <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-xl border border-beige-200 shadow-sm w-full min-w-0 min-h-[52px]">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Skriv din fråga här..."
-              className="flex-1 min-w-0 w-full bg-transparent outline-none text-slate-800 placeholder:text-slate-400 text-[13px] md:text-sm px-2"
+              className="chat-input flex-1 min-w-0 w-full bg-transparent outline-none text-slate-800 placeholder:text-slate-400 text-base md:text-[15px] px-2"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -207,7 +207,7 @@ export const ChatDemo: React.FC<{ initialOpenGreeting?: string; onClose?: () => 
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="w-8 h-8 min-w-[32px] shrink-0 rounded-full bg-gold-600 text-white grid place-items-center disabled:opacity-50 hover:bg-gold-500 transition-colors"
+              className="w-10 h-10 min-w-[40px] shrink-0 rounded-full bg-gold-600 text-white grid place-items-center disabled:opacity-50 hover:bg-gold-500 transition-colors"
               aria-label="Skicka"
               title="Skicka"
             >
@@ -215,12 +215,19 @@ export const ChatDemo: React.FC<{ initialOpenGreeting?: string; onClose?: () => 
             </button>
           </div>
         </form>
+        <p className="mt-2 text-center text-slate-500 text-[11px] font-medium">
+          Körs av DritonAI
+        </p>
       </div>
 
       <style>{`
         .chat-demo-root { max-width: 100%; overflow-x: hidden; }
         .chat-bubble { word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; }
         .chat-body { -webkit-overflow-scrolling: touch; }
+        .chat-input { font-size: 16px !important; }
+        @media (min-width: 768px) {
+          .chat-input { font-size: 15px !important; }
+        }
         @keyframes typing-bounce {
           0%, 60%, 100% { transform: translateY(0); }
           30% { transform: translateY(-4px); }

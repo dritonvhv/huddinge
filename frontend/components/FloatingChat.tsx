@@ -22,17 +22,12 @@ export const FloatingChat: React.FC = () => {
     if (isOpen) {
       const isMobile = window.matchMedia("(max-width: 639px)").matches;
       if (isMobile) {
-        const prevBody = {
-          overflow: document.body.style.overflow,
-          touchAction: document.body.style.touchAction,
-        };
+        const prevBody = { overflow: document.body.style.overflow };
         const prevHtml = { overflow: document.documentElement.style.overflow };
         document.body.style.overflow = "hidden";
-        document.body.style.touchAction = "none";
         document.documentElement.style.overflow = "hidden";
         return () => {
           document.body.style.overflow = prevBody.overflow;
-          document.body.style.touchAction = prevBody.touchAction;
           document.documentElement.style.overflow = prevHtml.overflow;
         };
       }
