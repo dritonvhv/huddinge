@@ -190,12 +190,20 @@ export const ChatDemo: React.FC<{ initialOpenGreeting?: string; onClose?: () => 
         className="chat-footer sticky bottom-0 px-3 py-3 md:px-4 md:py-4 bg-beige-100 border-t border-beige-200 shrink-0 w-full min-w-0"
         style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom, 0px))" }}
       >
+        {loading && (
+          <div className="mb-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-gold-50 border border-gold-200/60">
+            <div className="loading-bar-track h-1.5 flex-1 rounded-full bg-gold-200/50 overflow-hidden">
+              <div className="loading-bar-fill h-full rounded-full bg-gold-500" />
+            </div>
+            <span className="text-[11px] font-medium text-gold-700 shrink-0">Svarar...</span>
+          </div>
+        )}
         <form onSubmit={onSubmit} className="w-full min-w-0">
           <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-xl border border-beige-200 shadow-sm w-full min-w-0 min-h-[52px]">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={loading ? "Väntar på svar..." : "Skriv din fråga här..."}
+              placeholder="Skriv din fråga här..."
               disabled={loading}
               className="chat-input flex-1 min-w-0 w-full bg-transparent outline-none text-slate-800 placeholder:text-slate-400 text-base md:text-[15px] px-2 disabled:opacity-60 disabled:cursor-not-allowed"
               onKeyDown={(e) => {
@@ -242,6 +250,15 @@ export const ChatDemo: React.FC<{ initialOpenGreeting?: string; onClose?: () => 
         }
         .typing-dot-2 { animation-delay: 0.2s; }
         .typing-dot-3 { animation-delay: 0.4s; }
+        @keyframes loading-bar {
+          0% { transform: translateX(-100%); }
+          50% { transform: translateX(0%); }
+          100% { transform: translateX(100%); }
+        }
+        .loading-bar-fill {
+          width: 40%;
+          animation: loading-bar 1.5s ease-in-out infinite;
+        }
       `}</style>
     </div>
   );
