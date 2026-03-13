@@ -195,8 +195,9 @@ export const ChatDemo: React.FC<{ initialOpenGreeting?: string; onClose?: () => 
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Skriv din fråga här..."
-              className="chat-input flex-1 min-w-0 w-full bg-transparent outline-none text-slate-800 placeholder:text-slate-400 text-base md:text-[15px] px-2"
+              placeholder={loading ? "Väntar på svar..." : "Skriv din fråga här..."}
+              disabled={loading}
+              className="chat-input flex-1 min-w-0 w-full bg-transparent outline-none text-slate-800 placeholder:text-slate-400 text-base md:text-[15px] px-2 disabled:opacity-60 disabled:cursor-not-allowed"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
