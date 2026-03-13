@@ -14,10 +14,10 @@ View your app in AI Studio: https://ai.studio/apps/16830560-9465-4ea6-aa76-a0ec7
 
 1. Install dependencies:
    ```bash
-   npm install
+   npm run frontend:install
    npm run backend:install
    ```
-2. Kopiera `backend/.env.example` till `backend/.env` och lägg in din OpenAI API-nyckel:
+2. Kopiera `backend/.env.example` till `backend/.env` och lägg in din OpenAI API-nyckel. För Vercel: kopiera `frontend/.env.example` till `frontend/.env` och sätt `VITE_API_URL` till din Render-backend-URL.
    ```
    OPENAI_API_KEY=din_nyckel
    ```
