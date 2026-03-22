@@ -5,14 +5,7 @@ import { SEO } from "../components/SEO";
 import { SERVICES } from "../data/services";
 import { BOOKING_URL } from "../constants";
 
-const SERVICE_ICONS: Record<string, string> = {
-  "akut-tandvard": "🚨",
-  "estetisk-tandvard": "✨",
-  "allman-tandvard": "🦷",
-  "implantat": "🔬",
-  "tandblekning": "⚡",
-  "specialistvard": "🏆",
-};
+// Konstanta ikoner/emojis borttagna enligt request för renare look
 
 const SERVICE_TIME: Record<string, string> = {
   "akut-tandvard": "Samma dag",
@@ -90,8 +83,7 @@ export default function TreatmentsPage() {
                 className="bg-white rounded-[28px] border border-beige-200 shadow-sm hover:shadow-lg hover:shadow-gold-500/5 transition-all group flex flex-col overflow-hidden"
               >
                 <div className="p-8 flex flex-col flex-1">
-                  <div className="flex items-start justify-between mb-5">
-                    <span className="text-4xl">{SERVICE_ICONS[service.slug] ?? "🦷"}</span>
+                  <div className="flex items-start justify-end mb-5">
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-slate-500 bg-beige-100 px-3 py-1.5 rounded-full">
                       <Clock size={10} />
                       {SERVICE_TIME[service.slug]}
