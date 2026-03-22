@@ -22,8 +22,8 @@ export default function ServicePage() {
               Hem
             </Link>
             <span className="mx-2 text-slate-400">/</span>
-            <Link to="/#behandlingar" className="hover:text-gold-600">
-              Tjänster
+            <Link to="/behandlingar" className="hover:text-gold-600">
+              Behandlingar
             </Link>
             <span className="mx-2 text-slate-400">/</span>
             <span className="text-slate-800 font-medium">{service.title}</span>
@@ -58,8 +58,8 @@ export default function ServicePage() {
             </a>
           </div>
           <p className="mt-10 text-sm text-slate-600">
-            <Link to="/#behandlingar" className="text-gold-700 font-semibold hover:underline">
-              ← Tillbaka till alla tjänster
+            <Link to="/behandlingar" className="text-gold-700 font-semibold hover:underline">
+              ← Tillbaka till alla behandlingar
             </Link>
           </p>
         </div>

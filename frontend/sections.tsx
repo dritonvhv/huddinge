@@ -18,13 +18,13 @@ import { TrustBadges } from "./components/TrustBadges";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[80vh] flex items-center pt-32 pb-20 bg-white overflow-hidden">
+    <section className="relative min-h-[90vh] flex flex-col pt-32 pb-0 bg-white overflow-hidden">
       <div className="absolute inset-0 opacity-40">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-beige-200 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-beige-100 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10 flex-1 pb-20">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
           <div className="flex flex-col gap-2 mb-8">
             <div className="flex items-center gap-1 text-gold-600">
@@ -37,11 +37,11 @@ export function Hero() {
           </div>
 
           <h1 className="text-6xl lg:text-8xl font-black text-black leading-tight mb-8 tracking-tight font-display">
-            Expertis som <br />
-            <span className="text-gold-600 italic font-serif font-black">märks</span>
+            Din tandvård i <br />
+            <span className="text-gold-600 italic font-serif font-black">trygga händer</span>
           </h1>
           <p className="text-xl text-slate-700 mb-10 max-w-lg leading-relaxed font-light">
-            Välkommen till en av Huddinges mest anrika kliniker. Vi kombinerar fyrtio års erfarenhet med den senaste teknologin för att ge dig ett leende i världsklass.
+            Välkommen till Huddinges mest anrika klinik. Vi kombinerar 40 års erfarenhet med modern teknik – för ett leende du kan vara stolt över.
           </p>
 
           <div className="flex flex-wrap gap-6 items-center">
@@ -80,7 +80,7 @@ export function Hero() {
           <div className="relative z-10 rounded-[60px] overflow-hidden border border-gold-200 aspect-[4/5] shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800"
-              alt="Modern tandvårdsklinik Huddinge"
+              alt="Tandläkare på Huddinge Tandvård Rådsvägen – modern och trygg tandvård"
               className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
               referrerPolicy="no-referrer"
             />
@@ -92,9 +92,32 @@ export function Hero() {
           </div>
         </motion.div>
       </div>
+
+      {/* Stats ribbon */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="relative z-10 bg-black"
+      >
+        <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { value: "40+", label: "Års erfarenhet" },
+            { value: "4,9", label: "Google-betyg" },
+            { value: "1000+", label: "Nöjda patienter" },
+            { value: "Idag", label: "Akuttid tillgänglig" },
+          ].map((stat, i) => (
+            <div key={i} className="text-center">
+              <p className="text-gold-500 font-black text-3xl leading-none mb-1">{stat.value}</p>
+              <p className="text-white/60 text-xs font-medium uppercase tracking-widest">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
+
 
 const INVISALIGN_IMG = "/offers/invisalign-kampanj.png";
 

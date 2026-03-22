@@ -15,7 +15,7 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Hem", to: "/" },
-    { name: "Behandlingar", to: "/#behandlingar" },
+    { name: "Behandlingar", to: "/behandlingar" },
     { name: "Om oss", to: "/om-oss" },
     { name: "Kontakt", to: "/kontakt" },
   ];
@@ -34,7 +34,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-3 transition-colors duration-500">
           <div className="relative w-12 h-12 bg-black rounded-full border-2 border-gold-500 flex items-center justify-center overflow-hidden">
-            <span className="text-gold-500 font-serif text-2xl font-bold">H</span>
+            <span className="text-gold-500 font-serif text-2xl font-bold leading-none -translate-y-[1px]">H</span>
             <div className="absolute inset-0 border border-gold-500/30 rounded-full scale-90" />
           </div>
           <div className="flex flex-col">

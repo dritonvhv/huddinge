@@ -13,6 +13,36 @@ type BackendHistoryMsg = {
   content: string;
 };
 
+const URL_REGEX = /(https?:\/\/[^\s]+)/g;
+
+function MessageContent({ text, isUser }: { text: string; isUser: boolean }) {
+  const parts = text.split(URL_REGEX);
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (URL_REGEX.test(part)) {
+          // Reset lastIndex after test()
+          URL_REGEX.lastIndex = 0;
+          const label = part.includes("muntra.com") ? "📅 Boka tid här →" : part;
+          return (
+            <a
+              key={i}
+              href={part}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`underline font-semibold break-all ${isUser ? "text-white/90 hover:text-white" : "text-gold-700 hover:text-gold-900"}`}
+            >
+              {label}
+            </a>
+          );
+        }
+        URL_REGEX.lastIndex = 0;
+        return <span key={i}>{part}</span>;
+      })}
+    </>
+  );
+}
+
 const API_BASE = import.meta.env.VITE_API_URL || "";
 
 const CHAT_URL = API_BASE ? `${API_BASE}/chat` : "/api/chat";
@@ -162,7 +192,7 @@ export const ChatDemo: React.FC<{ initialOpenGreeting?: string; onClose?: () => 
                   : "self-start bg-white text-slate-700 border border-beige-200 shadow-sm",
               ].join(" ")}
             >
-              {m.text}
+              <MessageContent text={m.text} isUser={isUser} />
               <span className="flex items-center justify-end gap-1 mt-1 text-[10px] opacity-70">
                 {m.time && (
                   <>

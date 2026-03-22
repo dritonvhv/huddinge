@@ -9,8 +9,8 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
           <div className="col-span-1 lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-8">
-              <div className="relative w-12 h-12 bg-black rounded-full border-2 border-gold-500 flex items-center justify-center overflow-hidden">
-                <span className="text-gold-500 font-serif text-2xl font-bold">H</span>
+              <div className="relative w-12 h-12 aspect-square shrink-0 bg-black rounded-full border-2 border-gold-500 flex items-center justify-center overflow-hidden">
+                <span className="text-gold-500 font-serif text-2xl font-bold leading-none -translate-y-[1px]">H</span>
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-lg leading-none tracking-tight">
@@ -50,7 +50,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/#behandlingar" className="hover:text-black transition-colors">
+                <Link to="/behandlingar" className="hover:text-black transition-colors">
                   Behandlingar
                 </Link>
               </li>
