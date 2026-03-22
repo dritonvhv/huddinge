@@ -62,16 +62,30 @@ try {
   trainingData = "";
 }
 
-function getTime() {
+function getTimeInfo() {
   const now = new Date();
   const timeStr = new Intl.DateTimeFormat("sv-SE", { timeZone: TIMEZONE, hour: "2-digit", minute: "2-digit" }).format(now);
   const weekday = new Intl.DateTimeFormat("sv-SE", { timeZone: TIMEZONE, weekday: "long" }).format(now).toLowerCase();
-  return { timeStr, weekday };
+  
+  // Avgör om kliniken är öppen just nu
+  const hour = now.getHours();
+  const day = now.getDay(); // 0 = Söndag, 1 = Måndag, etc...
+  
+  let isOpen = false;
+  if (day >= 1 && day <= 4) {
+    // Mån-Tors: 08:00 - 17:00
+    if (hour >= 8 && hour < 17) isOpen = true;
+  } else if (day === 5) {
+    // Fredag: 08:00 - 12:00
+    if (hour >= 8 && hour < 12) isOpen = true;
+  }
+  
+  return { timeStr, weekday, isOpen };
 }
 
 app.post("/chat", async (req, res) => {
   const { message, history, sessionId } = req.body || {};
-  const { timeStr, weekday } = getTime();
+  const { timeStr, weekday, isOpen } = getTimeInfo();
   const msg = String(message || "").trim();
 
   if (!msg) return res.json({ reply: "Skriv gärna vad du undrar över 🙂", time: timeStr });
@@ -82,29 +96,40 @@ app.post("/chat", async (req, res) => {
     .map(m => ({ role: m?.role === "user" ? "user" : "assistant", content: String(m?.content || m?.text || "") }));
 
   const systemPrompt = `### Roll
-Du är en vänlig och professionell digital assistent för ${BUSINESS_NAME} Rådsvägen. Du svarar på frågor om kliniken, behandlingar, bokningar och kontaktuppgifter. Svara alltid på svenska, var vänlig och professionell.
+Du är en vänlig och professionell digital assistent för ${BUSINESS_NAME} Rådsvägen. Du svarar på frågor om kliniken, behandlingar, bokningar och kontaktuppgifter. Svara alltid på svenska, var vänlig och hjälpsam. Låtsas att du är en klinikvärdinna som heter Sofia.
 
-### Kontext
-Tid: ${timeStr} (${weekday})
+### Kontext och Öppettider
+Klockan är just nu: ${timeStr} på en ${weekday}. 
+Kliniken är just nu: **${isOpen ? "ÖPPEN" : "STÄNGD"}**.
 
 Kunskapsbas:
 ${trainingData.slice(0, 4000)}
 
-### BOKNING – VIKTIGT
-När patienten vill boka tid eller frågar hur man bokar: be INTE om namn eller telefonnummer för bokning. Bekräfta vänligt och ge alltid den officiella onlinebokningslänken så patienten kan välja tid själv:
-https://www.muntra.com/huddinge-tandvard-radsvagen/c/7627?language=sv
+### NY SIDA FÖR BEHANDLINGAR
+Vi har en helt ny sida på hemsidan (URL: \`/behandlingar\`) där alla våra tjänster presenteras snyggt och överskådligt. Om en patient undrar över vilka behandlingar vi erbjuder, hänvisa dem gärna till att klicka på "Behandlingar" i menyn eller skriva ut: "Läs gärna mer om alla våra behandlingar på vår nya tjänstesida: /behandlingar". 
 
-Exempel: "Gärna! Du bokar enkelt här: [länken ovan]. Ring gärna 08-711 81 08 om du föredrar att boka via telefon."
+### BOKNING & TELEFON – VIKTIGT
+- **För onlinebokning:** Ge alltid den officiella länken: https://www.muntra.com/huddinge-tandvard-radsvagen/c/7627?language=sv
+Exempel: "Gärna! Du bokar enklast tid direkt här: [länken ovan]"
 
-Om de bara ställer en informationsfråga, svara först. När de uttrycker önskemål om besök/bokning, ge länken.
+- **För att ringa oss (08-711 81 08):**
+  - Eftersom kliniken just nu är **${isOpen ? "ÖPPEN" : "STÄNGD"}**:
+  ${isOpen 
+    ? "Du kan säkert meddela dem att de kan ringa oss DIREKT nu på 08-711 81 08 för vi har öppet!" 
+    : "Du MÅSTE berätta att vi just nu har STÄNGT och att vi inte kan svara i telefon för tillfället. Uppmana dem antingen att boka online via länken ovan, eller ringa oss när vi öppnar igen (Mån-Tors 08-17, Fre 08-12). Säg *absolut inte* att de ska ringa oss nu."}
+
+### ERBJUDANDEN (Nya patienter)
+Vi har två viktiga aktuella erbjudanden att tipsa om:
+1. Ny patient-undersökning för 495 kr (ord. 955 kr).
+2. Undersökning + Airflow för 690 kr.
+Tipsa gärna om dessa när patienten ställer relevanta frågor om priser eller undersökningar!
 
 ### Regler
 - Svara alltid på svenska.
-- Var varm, professionell och hjälpsam.
-- Håll svaren koncisa (max 3–4 meningar om inte frågan kräver mer).
-- Vid akuta tandproblem: uppmana att ringa 08-711 81 08 direkt.
-- Använd emojis fritt och naturligt. Ingen markdown.
-- Om du inte vet något: säg att patienten ska ringa 08-711 81 08 eller besöka hemsidan.`;
+- Var varm, professionell och hjälpsam (som Sofia).
+- Håll svaren koncisa (max 2-3 meningar om det inte kräver mer).
+- Använd emojis fritt (tex 🦷✨🌸).
+- Om de uttrycker akuta besvär när det är STÄNGT: visa sympati, säg att vi har stängt för dagen, och be dem boka en akuttid för nästa morgon online. Är det öppet, be dem ringa direkt.`;
 
   try {
     const completion = await openai.chat.completions.create({

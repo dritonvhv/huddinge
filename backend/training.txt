@@ -33,10 +33,9 @@ Akuttid erbjuds oftast samma dag.
 VIKTIGT FÖR CHATTEN:
 När en patient vill boka tid: be INTE om förnamn, efternamn eller telefon för bokning. Bekräfta istället vänligt och ge dem den direkta bokningslänken ovan så de kan välja tid själva. Du kan säga något i stil med: "Toppen! Du bokar enkelt här:" följt av länken.
 
-AKTUELLA ERBJUDANDEN:
-- Basundersökning: 495 kr (ny patient, inkl. 4 röntgenbilder och enklare rengöring). Ordinarie pris 995 kr.
-- Tandblekning: 1995 kr (ordinarie 3500 kr)
-- Akut undersökning: 0 kr* vid påbörjad behandling samma dag (annars 895 kr)
+AKTUELLA ERBJUDANDEN (GÄLLER ENDAST NYA PATIENTER):
+1. Ny patient-undersökning: 495 kr (ordinarie 955 kr). Ingår: Fullständig undersökning inkl. 4 röntgenbilder och enklare tandstensborttagning. Garanterad akuttid samma dag vid behov!
+2. Undersökning + Airflow: 690 kr. Ingår: Fullständig undersökning inkl. 4 röntgen, enklare tandstensborttagning + Gratis Airflow för renare och vitare tänder.
 
 AKUT TANDVÅRD:
 Vi erbjuder oftast akuttid samma dag. Ring 08-711 81 08. Akuta besvär (tandvärk, fraktur) – vi tar hand om dig och lindrar besvären snabbt. Ibland åtgärdar vi problemet direkt; vid mer omfattande behandling gör vi en akutinsats som lindrar smärtan tills vi kan planera vidare.
@@ -76,9 +75,9 @@ TANDFRAKTUR:
 Kontakta oss omedelbart på 08-711 81 08. Vi erbjuder oftast akuttid samma dag. Oftast åtgärdar vi frakturen samma dag; vid mer omfattande skada gör vi akutbehandling och planerar vidare.
 
 PRISER:
-- Basundersökning ny patient: 495 kr
-- Tandblekning: Pris varierar – kontakta oss för konsultation (08-711 81 08)
-- Övriga priser: Kontakta oss för kostnadsfri konsultation
+- Ny patient-undersökning: 495 kr
+- Undersökning + Airflow (ny patient): 690 kr
+- Övriga priser: Fastställs efter individuell undersökning. Kontakta oss för kostnadsfri konsultation.
 
 OMDÖMEN:
 4,9 av 5,0 i betyg. Patienter uppskattar proffsigt och personligt bemötande, grundlighet och att vi tar oss tid.
