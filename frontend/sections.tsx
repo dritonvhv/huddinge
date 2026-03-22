@@ -18,15 +18,15 @@ import { TrustBadges } from "./components/TrustBadges";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex flex-col pt-32 pb-0 bg-white overflow-hidden">
+    <section className="relative flex flex-col pt-24 pb-0 md:pt-28 bg-white overflow-hidden">
       <div className="absolute inset-0 opacity-40">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-beige-200 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-beige-100 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10 flex-1 pb-20">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 flex-1 pb-16 lg:pb-24">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-          <div className="flex flex-col gap-2 mb-8">
+          <div className="flex flex-col gap-2 mb-4">
             <div className="flex items-center gap-1 text-gold-600">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} size={14} fill="currentColor" />
@@ -36,11 +36,11 @@ export function Hero() {
             <p className="text-sm text-slate-700 italic">"Snabb och proffsig hjälp. Väldigt bra bemötande och omhändertagande."</p>
           </div>
 
-          <h1 className="text-6xl lg:text-8xl font-black text-black leading-tight mb-8 tracking-tight font-display">
+          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black text-black leading-tight mb-4 tracking-tight font-display">
             Din tandvård i <br />
             <span className="text-gold-600 italic font-serif font-black">trygga händer</span>
           </h1>
-          <p className="text-xl text-slate-700 mb-10 max-w-lg leading-relaxed font-light">
+          <p className="text-base md:text-lg text-slate-700 mb-6 max-w-lg leading-relaxed font-light">
             Välkommen till Huddinges mest anrika klinik. Vi kombinerar 40 års erfarenhet med modern teknik – för ett leende du kan vara stolt över.
           </p>
 
@@ -65,8 +65,8 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="mt-10 pt-8 border-t border-black/5">
-            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 mb-4">Legitimerad vård &amp; medlemskap</p>
+          <div className="mt-6 pt-6 border-t border-black/5">
+            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 mb-3">Legitimerad vård &amp; medlemskap</p>
             <TrustBadges />
           </div>
         </motion.div>
