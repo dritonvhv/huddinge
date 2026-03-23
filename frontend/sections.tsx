@@ -10,8 +10,11 @@ import {
   Heart,
   MapPin,
   Clock,
+  MessageCircle,
+  ChevronDown,
 } from "lucide-react";
-import { motion } from "motion/react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { BOOKING_URL } from "./constants";
 import { SERVICES } from "./data/services";
 import { TrustBadges } from "./components/TrustBadges";
@@ -321,7 +324,16 @@ export function Testimonials() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {reviews.map((review, idx) => (
-            <motion.div key={idx} className="p-10 rounded-[40px] bg-white border border-beige-100 flex flex-col items-center text-center shadow-sm">
+            <motion.div key={idx} className="p-10 rounded-[40px] bg-white border border-beige-100 flex flex-col items-center text-center shadow-sm relative overflow-hidden">
+              {/* Google G Logo */}
+              <div className="absolute top-6 right-6 opacity-80">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                </svg>
+              </div>
               <div className="flex gap-1 text-gold-600 mb-6">
                 {[...Array(review.rating)].map((_, i) => (
                   <Star key={i} size={14} fill="currentColor" />
@@ -415,6 +427,89 @@ export function ContactSection() {
               <p className="text-slate-700 text-sm font-light">Vi finns centralt i Huddinge, bara ett stenkast från centrum.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function AiPromo() {
+  return (
+    <section className="py-12 bg-beige-50 border-b border-beige-100">
+      <div className="max-w-4xl mx-auto px-6 text-center">
+        <div className="inline-flex items-center justify-center w-12 h-12 bg-black text-gold-500 rounded-full mb-4 shadow-lg">
+          <MessageCircle size={24} />
+        </div>
+        <h2 className="text-xl md:text-2xl font-bold text-black mb-2">Chatta med vår AI-assistent</h2>
+        <p className="text-sm md:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          Klicka på runda ikonen nere i hörnet! Vår digitala värdinna har stenkoll på våra behandlingar, priser och kan tipsa dig snabbt – dygnet runt.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function FAQSection() {
+  const faqs = [
+    {
+      q: "Erbjuder ni delbetalning?",
+      a: "Ja, vi erbjuder fördelaktig delbetalning och faktura för att tandvård ska vara tillgänglig för alla. Kontakta oss i samband med ditt besök så hjälper vi dig hitta en lösning som passar din ekonomi.",
+    },
+    {
+      q: "Tar ni emot akuta patienter?",
+      a: "Absolut! Vi erbjuder oftast akuttid samma dag. Om du har akut tandvärk eller en skadad tand, ring oss direkt på 08-711 81 08 (eller boka online) så prioriterar vi dig.",
+    },
+    {
+      q: "Är jag välkommen som ny patient?",
+      a: "Ja, vi välkomnar alltid nya patienter till vår klinik på Rådsvägen. Vi har även speciella erbjudanden för nya patienter, tex reducerat pris på basundersökning.",
+    },
+    {
+      q: "Hur avbokar eller ombokar jag min tid?",
+      a: "Om du behöver ändra din tid ber vi dig göra det så snart som möjligt, helst 24 timmar innan, så att någon annan kan få din tid. Du kan ringa oss eller svara på din kallelse.",
+    },
+  ];
+
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <section className="py-24 bg-white">
+      <div className="max-w-3xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <span className="text-gold-600 font-black text-[10px] uppercase tracking-[0.3em] mb-4 block">Frågor & Svar</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-black">Vanliga frågor</h2>
+        </div>
+        
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div key={index} className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+              <button
+                type="button"
+                className="w-full px-6 py-5 text-left flex justify-between items-center bg-white hover:bg-beige-50 transition-colors"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+              >
+                <span className="font-bold text-black text-sm">{faq.q}</span>
+                <ChevronDown
+                  size={18}
+                  className={`text-gold-600 transition-transform duration-300 ${openIndex === index ? "rotate-180" : ""}`}
+                />
+              </button>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-6 pt-2 text-sm text-slate-700 leading-relaxed border-t border-slate-100">
+                      {faq.a}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
         </div>
       </div>
     </section>

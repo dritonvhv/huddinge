@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Phone, Menu, X } from "lucide-react";
+import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { BOOKING_URL } from "../constants";
+import { SERVICES } from "../data/services";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
@@ -75,14 +78,28 @@ export function Navbar() {
           </a>
         </div>
 
-        <button
-          type="button"
-          className={`md:hidden p-2 transition-colors duration-500 ${isScrolled ? "text-gold-500" : "text-black"}`}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Meny"
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all shadow-md ${
+              isScrolled
+                ? "bg-gold-500 text-black hover:bg-gold-600 shadow-gold-500/20"
+                : "bg-black text-gold-500 shadow-black/20"
+            }`}
+          >
+            Boka
+          </a>
+          <button
+            type="button"
+            className={`p-1 transition-colors duration-500 ${isScrolled ? "text-gold-500" : "text-black"}`}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Meny"
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -96,18 +113,75 @@ export function Navbar() {
             }`}
           >
             <div className="p-8 flex flex-col gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.to}
-                  className={`text-xl font-bold transition-colors ${
-                    isScrolled ? "text-white hover:text-gold-500" : "text-black hover:text-gold-600"
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                if (link.name === "Behandlingar") {
+                  return (
+                    <div key={link.name} className="flex flex-col gap-3">
+                      <button
+                        className={`flex items-center justify-between text-xl font-bold transition-colors ${
+                          isScrolled ? "text-white" : "text-black"
+                        }`}
+                        onClick={() => setIsServicesOpen(!isServicesOpen)}
+                      >
+                        {link.name}
+                        <ChevronDown
+                          size={20}
+                          className={`transition-transform duration-300 ${isServicesOpen ? "rotate-180 text-gold-500" : ""}`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {isServicesOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="flex flex-col gap-4 pl-4 border-l-2 border-gold-500/30 overflow-hidden"
+                          >
+                            <Link
+                              to="/behandlingar"
+                              className={`text-xs font-black uppercase tracking-widest mt-2 ${isScrolled ? "text-gold-400" : "text-gold-600"}`}
+                              onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                setIsServicesOpen(false);
+                              }}
+                            >
+                              Översikt alla behandlingar →
+                            </Link>
+                            {SERVICES.map((service) => (
+                              <Link
+                                key={service.slug}
+                                to={`/tjanster/${service.slug}`}
+                                className={`text-base font-medium transition-colors ${
+                                  isScrolled ? "text-white/70 hover:text-white" : "text-slate-600 hover:text-black"
+                                }`}
+                                onClick={() => {
+                                  setIsMobileMenuOpen(false);
+                                  setIsServicesOpen(false);
+                                }}
+                              >
+                                {service.title}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+                
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.to}
+                    className={`text-xl font-bold transition-colors border-b pb-4 ${
+                      isScrolled ? "text-white hover:text-gold-500 border-white/10" : "text-black hover:text-gold-600 border-black/5"
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
               <a
                 href="tel:087118108"
                 className={`flex items-center justify-center gap-3 py-4 rounded-xl font-black uppercase tracking-widest text-sm ${

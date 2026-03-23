@@ -1,6 +1,6 @@
 import { SEO } from "../components/SEO";
 import { JsonLdHome } from "../components/JsonLd";
-import { Hero, Offers, Services, AboutTeaser, Testimonials, ContactSection } from "../sections";
+import { Hero, Offers, Services, AboutTeaser, Testimonials, ContactSection, AiPromo, FAQSection } from "../sections";
 
 export default function HomePage() {
   return (
@@ -12,10 +12,12 @@ export default function HomePage() {
         path="/"
       />
       <Hero />
+      <AiPromo />
       <Offers />
       <Services />
       <AboutTeaser />
       <Testimonials />
+      <FAQSection />
       <ContactSection />
     </>
   );
