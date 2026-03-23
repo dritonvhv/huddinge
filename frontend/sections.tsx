@@ -21,102 +21,97 @@ import { TrustBadges } from "./components/TrustBadges";
 
 export function Hero() {
   return (
-    <section className="relative flex flex-col pt-24 pb-0 md:pt-28 bg-white overflow-hidden">
-      <div className="absolute inset-0 opacity-40">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-beige-200 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-beige-100 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4" />
+    <section className="relative w-full flex flex-col bg-black overflow-hidden" style={{ minHeight: '100svh' }}>
+      
+      {/* Bakgrundsbild */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <img
+          src="/hero-modell.jpg"
+          alt="Kvinna med friskt leende"
+          className="w-full h-full object-cover object-center"
+          loading="eager"
+          decoding="sync"
+        />
+        {/* Tonad overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-black/10" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10 flex-1 pb-16 lg:pb-24">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-          <div className="flex flex-col gap-2 mb-4">
-            <div className="flex items-center gap-1 text-gold-600">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} fill="currentColor" />
-              ))}
-              <span className="ml-2 text-sm font-bold text-black">4,9 av 5.0 i betyg:</span>
+      {/* Spacer som puffar innehållet ner förbi navbar */}
+      <div className="h-20 md:h-28 shrink-0" />
+
+      {/* Innehåll — centrerat vertikalt i resterande utrymme */}
+      <div className="relative z-10 flex-1 flex flex-col justify-end max-w-7xl mx-auto px-6 w-full pb-12 md:pb-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 md:gap-12">
+          
+          {/* Vänster: Text & Betyg */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="max-w-3xl"
+          >
+            {/* Recensionspills */}
+            <div className="flex items-center gap-2 mb-6 flex-wrap">
+              <div className="flex items-center gap-1 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-gold-500">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={14} fill="currentColor" />
+                ))}
+                <span className="ml-1 text-xs font-bold text-white">4,9 / 5,0</span>
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-widest text-white/90 bg-black/40 backdrop-blur-md px-3 py-2 rounded-full border border-white/5">
+                100+ recensioner
+              </span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-black bg-gold-500 px-3 py-2 rounded-full shadow-lg shadow-gold-500/20">
+                1986
+              </span>
             </div>
-            <p className="text-sm text-slate-700 italic">"Snabb och proffsig hjälp. Väldigt bra bemötande och omhändertagande."</p>
-          </div>
 
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black text-black leading-tight mb-4 tracking-tight font-display">
-            Din tandvård i <br />
-            <span className="text-gold-600 italic font-serif font-black">trygga händer</span>
-          </h1>
-          <p className="text-base md:text-lg text-slate-700 mb-6 max-w-lg leading-relaxed font-light">
-            Välkommen till Huddinges mest anrika klinik. Vi kombinerar 40 års erfarenhet med modern teknik – för ett leende du kan vara stolt över.
-          </p>
+            <h1 className="text-5xl sm:text-7xl lg:text-[7rem] font-black text-white leading-[1.05] tracking-tight font-display mb-6">
+              Din tandvård i <br />
+              <span className="text-gold-400 italic font-serif font-medium tracking-normal">trygga händer</span>
+            </h1>
+            
+            <p className="text-white/75 text-base md:text-lg max-w-lg leading-relaxed font-light">
+              Välkommen till Huddinges mest anrika klinik. Vi kombinerar 40 års erfarenhet med modern teknik – för ett leende du kan vara stolt över.
+            </p>
+          </motion.div>
 
-          <div className="flex flex-wrap gap-6 items-center">
+          {/* Höger: CTAs */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            className="flex flex-col gap-4 sm:min-w-[280px]"
+          >
             <a
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-10 py-5 bg-black text-gold-500 rounded-full font-black text-sm uppercase tracking-widest hover:bg-gold-950 transition-all shadow-2xl shadow-black/10 flex items-center gap-3 group"
+              className="flex items-center justify-between gap-6 px-8 py-5 bg-gold-500 text-black rounded-full font-black text-sm uppercase tracking-widest hover:bg-white transition-all shadow-2xl shadow-gold-500/30 group"
             >
               Boka Din Tid
-              <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              <span className="bg-black text-gold-500 p-2 rounded-full group-hover:bg-gold-500 group-hover:text-black transition-colors">
+                <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </span>
             </a>
-            <a href="tel:087118108" className="flex items-center gap-4 text-black hover:text-gold-600 transition-colors group">
-              <div className="w-14 h-14 rounded-full border border-black/10 flex items-center justify-center group-hover:border-gold-500 transition-colors">
-                <Phone size={20} />
+            
+            <a href="tel:087118108" className="flex items-center gap-4 text-white hover:text-gold-400 transition-colors group px-2">
+              <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-md group-hover:border-gold-500 transition-colors shrink-0">
+                <Phone size={18} />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-widest text-slate-600">Ring oss direkt</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/50">Ring oss direkt</span>
                 <span className="font-bold text-lg">08-711 81 08</span>
               </div>
             </a>
-          </div>
 
-          <div className="mt-6 pt-6 border-t border-black/5">
-            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 mb-3">Legitimerad vård &amp; medlemskap</p>
-            <TrustBadges />
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative lg:block hidden"
-        >
-          <div className="relative z-10 rounded-[60px] overflow-hidden border border-gold-200 aspect-[4/5] shadow-2xl">
-            <img
-              src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800"
-              alt="Tandläkare på Huddinge Tandvård Rådsvägen – modern och trygg tandvård"
-              className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent" />
-          </div>
-          <div className="absolute -bottom-10 -right-10 z-20 bg-black text-gold-500 p-10 rounded-full flex flex-col items-center justify-center shadow-2xl border-4 border-white">
-            <span className="text-4xl font-black leading-none">40</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest">År</span>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Stats ribbon */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative z-10 bg-black"
-      >
-        <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { value: "40+", label: "Års erfarenhet" },
-            { value: "4,9", label: "Google-betyg" },
-            { value: "1000+", label: "Nöjda patienter" },
-            { value: "Idag", label: "Akuttid tillgänglig" },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <p className="text-gold-500 font-black text-3xl leading-none mb-1">{stat.value}</p>
-              <p className="text-white/60 text-xs font-medium uppercase tracking-widest">{stat.label}</p>
+            <div className="mt-2 pt-4 border-t border-white/10 hidden md:block">
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40 mb-2">Legitimerad vård</p>
+              <TrustBadges />
             </div>
-          ))}
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
